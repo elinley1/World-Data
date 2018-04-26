@@ -8,6 +8,48 @@ nav .brand-logo.right {
     font-family: 'Play', sans-serif;
 }
 
+#world {
+    height: 45px;
+    width: 45px;
+    margin-left: 40px;
+    margin-top: 8px;
+}
+
+.range-slider {
+    margin: 0 48px 0 65px;
+}
+
+.range-slider__value {
+    float: right;
+    margin-top: 15px;
+}
+
+.btn {
+    font-family: 'Yantramanav', sans-serif;
+    padding: 15px 45px 30px 45px;
+    line-height: 16px;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
 #worldImg {
-    width: 70%;
+    width: 100%;
+}
+
+#year {
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 15px;
+    float: left;
+}
+
+#country,
+#description,
+#articles,
+#dropdown {
+    font-family: 'Yantramanav', sans-serif;
+}
+
+#dropdown {
+    margin-top: 15px;
+    margin-right: 35px;
 }
