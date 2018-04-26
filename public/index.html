@@ -3,57 +3,83 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>CMS - Express</title>
-  <!-- Latest compiled and minified CSS & JS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+  <title>World Data Visualization</title>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- Custom Script -->
+  <script src="js/logic.js" type="text/javascript"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Play|Yantramanav" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="icon left">
+        <img id="world" src="./img/wrld.png"/>
+      </a>
+      <a href="#" class="brand-logo right">World Data Visualization</a>
+    </div>
+  </nav>
   <div class="container">
-    <div class="row mt-4">
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-light" href="/blog">Go to Blog</a>
-      </div>
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-light" href="/cms">New Post</a>
-      </div>
-    </div>
+    <br>
     <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <div class="author-container">
-          <h1>Authors</h1>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th># of Posts</th>
-                <th>See Author's Posts</th>
-                <th>New Post</th>
-                <th>Delete Author</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr id="form-row">
-                <form id="author-form">
-                  <td colspan="4">
-                    <input placeholder="Enter a name" id="author-name" type="text" />
-                  </td>
-                  <td>
-                    <button type="submit" class="btn btn-success">Create Author</button>
-                  </td>
-                </form>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <select class="browser-default col s4" id="dropdown">
+        <option value="" disabled selected>Select a Category</option>
+        <option value="1">Happiness</option>
+        <option value="2">GINI Index</option>
+        <option value="3">Internet Usage</option>
+        <option value="3">Life Expectancy</option>
+        <option value="3">GDP per Capita</option>
+      </select>
+      <div class="range-slider col s5">
+        <h5 id="year">Select a Year</h5>
+        <span class="range-slider__value">0</span>
+        <input class="range-slider__range" type="range" value="12" min="2005" max="2016">
+        
       </div>
+      <button class="btn black" type="submit" name="action">Submit</button>
     </div>
-    </d>
-    <!-- Custom Script -->
-    <script src="js/author.js" type="text/javascript"></script>
+    <div class="row" id="country">
+      <h5>Select a Country:</h5>
+      <img id="worldImg" src="./img/world-map-large.png" />
+    </div>
+    <div class="row" id="description">
+      <h5>Description:</h5>
+    </div>
+    <div class="row" id="articles">
+      <h5>Articles:</h5>
+    </div>
+
+    <script>
+      var elem = document.querySelector('select');
+      var instance = M.FormSelect.init(elem, options);
+
+      var rangeSlider = function () {
+        var slider = $('.range-slider'),
+          range = $('.range-slider__range'),
+          value = $('.range-slider__value');
+
+        slider.each(function () {
+
+          value.each(function () {
+            var value = $(this).prev().attr('value');
+            $(this).html(value);
+          });
+
+          range.on('input', function () {
+            $(this).next(value).html(this.value);
+          });
+        });
+      };
+
+      rangeSlider();
+
+    </script>
 
 </body>
 
