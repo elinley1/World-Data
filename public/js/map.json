@@ -18,7 +18,7 @@
           "buckets": [
              {
                 "key": "USA",
-                "doc_count": 4231922
+                "doc_count": 423000
              },
              {
                 "key": "CAN",

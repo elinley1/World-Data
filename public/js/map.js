@@ -39,7 +39,7 @@
                 .attr("class", "graticule")
                 .attr("d", path);
 
-            d3.json('js/map.json', function(error, mockdata) {
+            d3.json('/api/map', function(error, mockdata) {
                 if (error) return console.error(error);
                 console.log('mockdata',mockdata);
                 mapdata = mockdata;
