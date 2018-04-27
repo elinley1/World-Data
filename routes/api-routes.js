@@ -1,38 +1,32 @@
 /// need to finish the changes to the tables 
-
-var db = require("../models");
+var path = require("path");
+// var db = require("../models");
 
 module.exports = function(app) {
-  app.get("/api/:country", function(req, res) {
-    db.Country.findAll({}).then(function(dbCountry) {
-      res.json(dbCountry);
-    });
+
+// var globalMapData = {};
+
+  app.get("/api/map", function(req, res) {
+    var query = req.body;
+   res.sendFile(path.join(__dirname,"../public/js/map.json"));
+  //  res.json(globalMapData);
   });
 
-  app.get("/api/:category", function(req, res) {
-    db.Category.findOne({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
-    });
-  });
+ 
 
-  app.get("/api/:", function(req, res) {
-    db.Author.create(req.body).then(function(dbAuthor) {
-      res.json(dbAuthor);
-    });
-  });
+  // app.get("/api/:category/:year", function(req, res) {
+  //  var category = req.params.category;
+  //  var year = req.params.category;
+   
+  //  db.category.findOne({
+  //     where: {
+  //       year: year
+  //     }
+  //   }).then(function(mapData) {
+  //     globalMapData = mapData;
+  //   });
+  // });
 
-  app.delete("/api/", function(req, res) {
-    db.Author.destroy({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
-    });
-  });
+
 
 };
