@@ -1,5 +1,5 @@
-  /* JavaScript goes here. */
-            // globals used in graph
+
+
             var mapdata = {};
             var palette = ['#009933','#669900','#99cc00','#cccc00','#c7dc09','#edf933','#ffcc00', '#ff9933', '#ff6600','#ff5050'];
             var width = 960, height = 960;
@@ -12,7 +12,7 @@
             var path = d3.geo.path().projection(projection);
             var graticule = d3.geo.graticule();
             // SVG related definitions
-            var svg = d3.select('body').append('svg')
+            var svg = d3.select('#country').append('svg')
                         .attr({'width': width, 'height': height})
                         .append('g');
             var filter = svg.append('defs')
@@ -39,7 +39,7 @@
                 .attr("class", "graticule")
                 .attr("d", path);
 
-            d3.json('mockelasticdata.json', function(error, mockdata) {
+            d3.json('js/map.json', function(error, mockdata) {
                 if (error) return console.error(error);
                 console.log('mockdata',mockdata);
                 mapdata = mockdata;
@@ -57,7 +57,7 @@
                 //         return;
                 //     }
                 // }
-                d3.json('world.json', function(error, world) {
+                d3.json('js/world.json', function(error, world) {
                     if (error) return console.error(error);
                     console.log('world',world);
                     processWorldD(world, data);

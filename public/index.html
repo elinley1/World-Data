@@ -7,16 +7,24 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery.js"></script>
-  <!-- Custom Script -->
-  <script src="js/logic.js" type="text/javascript"></script>
+
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Play|Yantramanav" rel="stylesheet">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/map.css">
+
+
 </head>
 
 <body>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+  
+    
+
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="icon left">
@@ -44,9 +52,9 @@
       </div>
       <button class="btn black" type="submit" name="action">Submit</button>
     </div>
-    <div class="row" id="country">
-      <h5>Select a Country:</h5>
-      <img id="worldImg" src="./img/world-map-large.png" />
+    <div class="row" >
+      <h5>Select a Country:</h5> 
+      <div id="country"></div>
     </div>
     <div class="row" id="description">
       <h5>Description:</h5>
@@ -80,7 +88,7 @@
       rangeSlider();
 
     </script>
-
+  <script src="js/map.js" type="text/javascript"></script>
 </body>
 
 </html>
