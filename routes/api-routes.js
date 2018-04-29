@@ -1,6 +1,6 @@
 /// need to finish the changes to the tables 
 var path = require("path");
-// var db = require("../models");
+var gdp = require("../models/models.js");
 
 module.exports = function(app) {
 
@@ -12,7 +12,9 @@ module.exports = function(app) {
   //  res.json(globalMapData);
   });
 
- 
+  app.get("/test", function(req, res) {
+    console.log("GDP:" + gdp);
+  });
 
   // app.get("/api/:category/:year", function(req, res) {
   //  var category = req.params.category;
