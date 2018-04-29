@@ -152,6 +152,10 @@ function mouseoutLegend(datum, index) {
 }
 
 function countryclicked(datum, index) {
+    var country = datum.properties.name;
+    var year = $('.range-slider__range').val();
+    console.log(year, country);
+    loadNewsAPI(country, year);
     //filter event for this country should be applied here
     console.log('countryclicked datum', datum);
 }
