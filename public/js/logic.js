@@ -12,7 +12,11 @@ function loadNewsAPI(country, year) {
       method: 'GET',
     }).done(function(result) {
       console.log(result);
-      console.log("working");
+      let docs = result.response.docs
+      console.log(docs)
+        updateArticles(docs);
+      return result;
+
     }).fail(function(err) {
       throw err;
     });
@@ -20,13 +24,13 @@ function loadNewsAPI(country, year) {
 
 /**
  * takes API data (JSON/object) and turns it into elements on the page
- * @param {object} NYTData - object containing NYT API data
  */
-function updateArticles(NYTData) {
+function updateArticles(docs) {
     var numberArticles = 10;
-    for (var i = 0; i < numberArticles.length; i++) {
+    $('#articles').html("")
+    for (var i = 0; i < docs.length; i++) {
         console.log("repeating");
-        var article = NYTData.response.docs[i];
+        var article = docs[i];
         var articleCount = i + 1;
 
         var $articleSelection = $("<article>");
@@ -36,31 +40,29 @@ function updateArticles(NYTData) {
         $("#articles").append($articleSelection);
 
         var headline = article.headline.main;
-        console.log(headline);
         if (headline) {
             $articleSelection.append("<h5>" + headline + "</h5>");
         }
 
         var publishDate = article.pub_date;
-        console.log(publishDate);
         if (publishDate) {
             $articleSelection.append("<h5>Publication Date: " + publishDate + "</h5>");
         }
 
-        var byline = article.byline;
-        console.log(byline);
+        var byline = article.byline && article.byline.person ? article.byline.person
+            .map(function(person) {
+            return person.firstname + " " + person.lastname;
+        }).join(", ") : false;
         if (byline) {
             $articleSelection.append("<h5>" + byline + "</h5>");
         }
 
         var section = article.section_name;
-        console.log(section);
         if (section) {
             $articleSelection.append("<h5>Section: " + section + "</h5>");
         }
 
         var website = article.web_url;
-        console.log(website);
         if (website) {
             $articleSelection.append("<a href= " + website + "a>" + website + "</a>")
         }
@@ -70,6 +72,11 @@ function updateArticles(NYTData) {
 $("#submit-button").on("click", function(event) {
     console.log("button clicked");
     event.preventDefault();
+
+    //get country
+    //get year
+    //make AJAX request
+    //in .then handler, call updateArticles w/ response data
 
     // renderDescription();
     updateArticles();
