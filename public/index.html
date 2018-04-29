@@ -87,6 +87,22 @@
 
       rangeSlider();
 
+           $(document).ready(function(){
+
+           
+           $("body").on('click',"black",function(){
+           
+           $.ajax({
+                   url: '/post',
+                   method: 'POST'
+           
+               }).then(function(data){
+                   alert("yeah")
+               });
+       });
+      });
+      
+
     </script>
   <script src="js/map.js" type="text/javascript"></script>
 </body>

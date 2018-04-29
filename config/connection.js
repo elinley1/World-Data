@@ -1,6 +1,6 @@
 var Sequelize = require("sequelize");
 
-var sequelize = new Sequelize("world_data", "ooy00duznsn0hht8", "doq8rlras8j0tvqq", {
+var sequelize = new Sequelize("yty7lta08zutn2mm", "ooy00duznsn0hht8", "doq8rlras8j0tvqq", {
     host: "umabrisfx8afs3ja.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     dialect: "mysql",
     pool: {

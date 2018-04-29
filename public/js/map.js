@@ -141,3 +141,24 @@
                 else approxIdx = Math.floor(approxIdx) - 1;
                 return palette[approxIdx];
             }
+
+
+            $(document).ready(function () {
+
+                $("body").on('click', ".black", function () {
+        
+                  $.ajax({
+                    url: '/post',
+                    method: 'POST'
+        
+                  }).then(function (data) {
+                    alert("yeah")
+                  });
+                });
+              });
+
+
+
+
+
+       

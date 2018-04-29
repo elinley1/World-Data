@@ -22,23 +22,23 @@ var sequelize = require("../config/connection.js");
 // }); 
 
 var gdp = sequelize.define("gdp", {
-        country: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        code: {
-            type: Sequelize.STRING,
-            allowNull: false
-        }, 
-        year: {
-            type: Sequelize.DATEONLY,
-            allowNull: false
-        },
-        gdpIdx: {
-            type: Sequelize.FLOAT,
-            allowNull: false
-        }
-    });
+    country: {
+        type: Sequelize.STRING
+ 
+    },
+    code: {
+        type: Sequelize.STRING
+   
+    },
+    year: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    gdpIdx: {
+        type: Sequelize.INTEGER
+     
+    }
+});
 
 
 
@@ -96,11 +96,29 @@ var gdp = sequelize.define("gdp", {
 //     }
 // })
 
-gdp.syn();
+
+
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+    
+try {
+    gdp.sync();
+
 // Happiness.sync();
 // Gini.sync();
 // Internet.sync();
 // LifeExp.sync();
+
+} catch (e) {
+    console.log(e);
+}
+
 
 // module.exports = Internet;
 module.exports = gdp;
