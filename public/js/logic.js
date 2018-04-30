@@ -71,19 +71,19 @@ function updateArticles(docs) {
 
         var $articleSelection = $("<article>");
         $articleSelection.addClass("selection");
-        $articleSelection.append("<button class='btn black' type='save' name='action'>Save Article</button>");
+        $articleSelection.append("<button class='btn black' id='saveArticle' type='save' name='action'>Save Article</button>");
         $articleSelection.attr("id", "article-selection-" + articleCount);
 
         $("#articles").append($articleSelection);
 
         var headline = article.headline.main;
         if (headline) {
-            $articleSelection.append("<h5 id='articleHead'>" + headline + "</h5>");
+            $articleSelection.append("<h5 class='articleHead'>" + headline + "</h5>");
         }
 
         var publishDate = article.pub_date;
         if (publishDate) {
-            $articleSelection.append("<h5>Publication Date: " + publishDate + "</h5>");
+            $articleSelection.append("<h5> class='pubDate' Publication Date: " + publishDate + "</h5>");
         }
 
         var byline = article.byline && article.byline.person ? article.byline.person
@@ -103,6 +103,26 @@ function updateArticles(docs) {
         if (website) {
             $articleSelection.append("<a href= '" + website + "' class='website'>" + website + "</a>")
         }
+    }
+
+    function saveArticles() {
+
+        $(document).on("click", "#saveArticle", function() {
+            var data = {
+                headline: $(".articleHead").text(),
+                pub_date: $(".pubDate").text(),
+                web_url: $(".website").text()
+            }
+
+            $.ajax({
+                url: "api/articles/saved",
+                method: "POST",
+                data: data
+            }).then(function(err, data) {
+                if (err) throw err;
+                console.log(data);
+            });
+        });
     }
 };
 

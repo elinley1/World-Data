@@ -182,7 +182,7 @@ h5 {
   font-size: 20px;
 }
 
-#articleHead {
+.articleHead {
   font-family: 'Play', sans-serif;
   font-weight: bold;
   font-size: 25px;
@@ -206,7 +206,7 @@ h5 {
   }
 
   /* Articles */
-  #articleHead {
+  .articleHead {
     font-size: 15px;
   }
   h5 {
