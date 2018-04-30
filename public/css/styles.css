@@ -168,6 +168,10 @@ h5 {
   margin: 0px
 }
 
+.btn {
+  float: right;
+}
+
 /* Media Queries */
 @media only screen and (max-width: 600px) {
   /* Range Slider */
