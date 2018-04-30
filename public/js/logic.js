@@ -23,8 +23,10 @@ function loadNewsAPI(country, year) {
 };
 
 //Description of index calculations
-function updateDescription(val) {
-    var descSelection = $("this").attr("id");
+function updateDescription() {
+    var descSelection = $("#dropdown").val();
+
+    console.log("This: ", descSelection);
     
     if (descSelection === "1") {
         $("#description").html("Data shows 'happiness scores' published in the World Happiness Report 2017. The underlying source of the happiness scores in the World Happiness Report is the Gallup World Poll—a set of nationally representative surveys undertaken in more than 160 countries in over 140 languages. The main life evaluation question asked in the poll is: 'Please imagine a ladder, with steps numbered from 0 at the bottom to 10 at the top. The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you. On which step of the ladder would you say you personally feel you stand at this time?' (Also known as the 'Cantril Ladder'.)");
@@ -51,8 +53,11 @@ function updateDescription(val) {
    };
 };
 
-$(" :option").select(function(){
-    updateDescription(val);
+$(document).ready(function () {
+    $("#dropdown").change(function() {
+        $("#dropdown option:selected").val();
+        updateDescription();
+    });    
 });
 
 //Update articles based on search criteria 
