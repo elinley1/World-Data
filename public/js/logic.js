@@ -41,7 +41,7 @@ function updateArticles(docs) {
 
         var headline = article.headline.main;
         if (headline) {
-            $articleSelection.append("<h5>" + headline + "</h5>");
+            $articleSelection.append("<h5 id='articleHead'>" + headline + "</h5>");
         }
 
         var publishDate = article.pub_date;
@@ -54,7 +54,7 @@ function updateArticles(docs) {
             return person.firstname + " " + person.lastname;
         }).join(", ") : false;
         if (byline) {
-            $articleSelection.append("<h5>" + byline + "</h5>");
+            $articleSelection.append("<h5>Writer: " + byline + "</h5>");
         }
 
         var section = article.section_name;
@@ -64,22 +64,9 @@ function updateArticles(docs) {
 
         var website = article.web_url;
         if (website) {
-            $articleSelection.append("<a href= " + website + "a>" + website + "</a>")
+            $articleSelection.append("<a href= " + website + ">" + website + "</a>")
         }
     }
 };
 
-$("#submit-button").on("click", function(event) {
-    console.log("button clicked");
-    event.preventDefault();
-
-    //get country
-    //get year
-    //make AJAX request
-    //in .then handler, call updateArticles w/ response data
-
-    // renderDescription();
-    updateArticles();
-
-
-})
+updateArticles();
