@@ -30,7 +30,7 @@ nav .brand-logo.right {
 }
 
 .row .col.s5 {
-  width: 62.666667%;
+  width: 48.666667%;
 }
 
 .range-slider__range {
@@ -147,6 +147,12 @@ h4 {
 #dropdown {
   margin-top: 20px;
   margin-right: 35px;
+}
+
+/* Submit Button */
+#submitButton {
+  margin-top: 20px;
+  padding: 0px 30px 0px 30px;
 }
 
 /* Articles */
