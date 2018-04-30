@@ -48,12 +48,54 @@ svg.append("path")
     .attr("class", "graticule")
     .attr("d", path);
 
-d3.json('/api/map', function (error, mockdata) {
-    if (error) return console.error(error);
-    console.log('mockdata', mockdata);
-    mapdata = mockdata;
-    draw(mockdata)
+
+// d3.json('/api/map', function(error, mockdata) {
+//     if (error) return console.error(error);
+//     console.log('mockdata',mockdata);
+//     mapdata = mockdata;
+//     draw(mockdata)
+// });
+
+// $(document).ready(function () {
+
+//     $("body").on('click', ".black", function () {
+
+//         d3.json('/submit', function(error, mockdata) {
+//             if (error) return console.error(error);
+//             console.log('mockdata', mockdata);
+//             mapdata = mockdata;
+//             draw(mockdata);
+//         });
+
+//     });
+//   });
+var submitClickCount = 0;
+$(document).ready(function () {
+    $("body").on('click', ".black", function () {
+      
+        var yearChosen = $('.range-slider__range').val();
+        
+        var categoryChosen = $("#dropdown").val();
+
+        yearChosen = yearChosen.replace(/\s+/g, "").toLowerCase();
+        categoryChosen = categoryChosen.replace(/\s+/g, "").toLowerCase();
+
+        
+        $.ajax({
+            url: "/submit/" + yearChosen + "/" +categoryChosen,
+            method: 'GET',
+        }).done(function (mockdata) {
+            console.log(yearChosen);
+            // console.log('mockdata', JSON.parse(mockdata));
+            mapdata = JSON.parse(mockdata);
+            draw(JSON.parse(mockdata));
+            submitClickCount ++;
+            console.log("you have clicked " + submitClickCount + " times");
+
+        });
+    });
 });
+
 
 function draw(data) {
     // var localstoreWorldData = localStorage.getItem('worldmapData');
@@ -73,7 +115,6 @@ function draw(data) {
         //localStorage.setItem('worldmapData', JSON.stringify(world));
     });
 }
-
 function processWorldD(world, data) {
     for (var idx = 0; idx < data.aggregations.world_map.buckets.length; idx++) {
         var cCode = data.aggregations.world_map.buckets[idx].key.toUpperCase();
@@ -85,56 +126,39 @@ function processWorldD(world, data) {
             }
         }
     }
+  
     var subunits = topojson.feature(world, world.objects.subunits);
-    subunits.features = subunits.features.filter(function (d) {
-        return d.id !== "ATA";
-    });
+    subunits.features = subunits.features.filter(function (d) { return d.id !== "ATA"; });
     console.log('subunits', subunits);
-    minDocCount = d3.min(subunits.features, function (d) {
-        return d.properties.doc_count;
-    });
+    minDocCount = d3.min(subunits.features, function (d) { return d.properties.doc_count; });
     console.log('minDocCount', minDocCount);
-    var doc_counts = subunits.features.map(function (d) {
-        return d.properties.doc_count;
-    });
-    doc_counts = doc_counts.filter(function (d) {
-        return d;
-    }).sort(d3.ascending);
+    var doc_counts = subunits.features.map(function (d) { return d.properties.doc_count; });
+    doc_counts = doc_counts.filter(function (d) { return d; }).sort(d3.ascending);
     //console.log('doc_counts',doc_counts);
     quantiles['0.95'] = d3.quantile(doc_counts, '0.95');
     var countries = svg.selectAll('path.subunit')
         .data(subunits.features).enter();
     countries.insert('path', '.graticule')
-        .attr('class', function (d) {
-            return 'subunit ca' + d.id;
-        })
+        .attr('class', function (d) { return 'subunit ca' + d.id; })
         .style('fill', heatColor)
         .attr('d', path)
         .on('mouseover', mouseoverLegend).on('mouseout', mouseoutLegend)
-        .on('click', countryclicked);
+        .on('click', coutryclicked);
 
     countries.append('svg:text')
-        .attr('class', function (d) {
-            return 'subunit-label la' + d.id + d.properties.name.replace(/[ \.#']+/g, '');
-        })
+        .attr('class', function (d) { return 'subunit-label la' + d.id + d.properties.name.replace(/[ \.#']+/g, ''); })
         //.attr('transform', function(d) { return 'translate('+ path.centroid(d) +')'; })
-        .attr('transform', function (d) {
-            return 'translate(' + (width - (5 * d.properties.name.length)) + ',' + (15) + ')';
-        })
+        .attr('transform', function (d) { return 'translate(' + (width - (5 * d.properties.name.length)) + ',' + (15) + ')'; })
         .attr('dy', '.35em')
         .attr('filter', 'url(#gray-background)')
         .append('svg:tspan')
         .attr('x', 0)
         .attr('dy', 5)
-        .text(function (d) {
-            return d.properties.name;
-        })
+        .text(function (d) { return d.properties.name; })
         .append('svg:tspan')
         .attr('x', 0)
         .attr('dy', 20)
-        .text(function (d) {
-            return d.properties.doc_count ? d.properties.doc_count : '';
-        });
+        .text(function (d) { return d.properties.doc_count ? d.properties.doc_count : ''; });
 }
 
 function mouseoverLegend(datum, index) {
@@ -144,12 +168,14 @@ function mouseoverLegend(datum, index) {
         .style('fill', '#cc6699');
 }
 
+
 function mouseoutLegend(datum, index) {
     d3.selectAll('.subunit-label.la' + datum.id + datum.properties.name.replace(/[ \.#']+/g, ''))
         .style('display', 'none');
     d3.selectAll('.subunit.ca' + datum.id)
         .style('fill', heatColor(datum));
 }
+
 
 function countryclicked(datum, index) {
     var country = datum.properties.name;
@@ -173,4 +199,13 @@ function heatColor(d) {
     if (!approxIdx || Math.floor(approxIdx) === 0) approxIdx = 0;
     else approxIdx = Math.floor(approxIdx) - 1;
     return palette[approxIdx];
+
 }
+
+
+
+
+
+
+
+
