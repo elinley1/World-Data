@@ -143,7 +143,7 @@ function processWorldD(world, data) {
         .style('fill', heatColor)
         .attr('d', path)
         .on('mouseover', mouseoverLegend).on('mouseout', mouseoutLegend)
-        .on('click', coutryclicked);
+        .on('click', countryclicked);
 
     countries.append('svg:text')
         .attr('class', function (d) { return 'subunit-label la' + d.id + d.properties.name.replace(/[ \.#']+/g, ''); })
@@ -199,7 +199,6 @@ function heatColor(d) {
     if (!approxIdx || Math.floor(approxIdx) === 0) approxIdx = 0;
     else approxIdx = Math.floor(approxIdx) - 1;
     return palette[approxIdx];
-
 }
 
 
