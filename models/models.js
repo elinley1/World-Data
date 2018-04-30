@@ -3,6 +3,7 @@ var Sequelize = require("sequelize");
 var sequelize = require("../config/connection.js");
 
 
+
 // var Happiness = sequelize.define("happiness", {
 //     country: {
 //         type: Sequelize.STRING,

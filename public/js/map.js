@@ -1,9 +1,9 @@
-
-
 var mapdata = {};
 var palette = ['#009933', '#669900', '#99cc00', '#cccc00', '#c7dc09', '#edf933', '#ffcc00', '#ff9933', '#ff6600', '#ff5050'];
-var width = 960, height = 960;
-var minDocCount = 0, quantiles = {};
+var width = 960,
+    height = 960;
+var minDocCount = 0,
+    quantiles = {};
 // projection definitions
 var projection = d3.geo.mercator()
     .scale((width + 1) / 2 / Math.PI)
@@ -13,11 +13,20 @@ var path = d3.geo.path().projection(projection);
 var graticule = d3.geo.graticule();
 // SVG related definitions
 var svg = d3.select('#country').append('svg')
-    .attr({ 'width': width, 'height': height })
+    .attr({
+        'width': width,
+        'height': height
+    })
     .append('g');
 var filter = svg.append('defs')
     .append('filter')
-    .attr({ 'x': 0, 'y': 0, 'width': 1, 'height': 1, 'id': 'gray-background' });
+    .attr({
+        'x': 0,
+        'y': 0,
+        'width': 1,
+        'height': 1,
+        'id': 'gray-background'
+    });
 filter.append('feFlood')
     .attr('flood-color', '#f2f2f2')
     .attr('result', 'COLOR');
@@ -117,6 +126,7 @@ function processWorldD(world, data) {
             }
         }
     }
+  
     var subunits = topojson.feature(world, world.objects.subunits);
     subunits.features = subunits.features.filter(function (d) { return d.id !== "ATA"; });
     console.log('subunits', subunits);
@@ -158,6 +168,7 @@ function mouseoverLegend(datum, index) {
         .style('fill', '#cc6699');
 }
 
+
 function mouseoutLegend(datum, index) {
     d3.selectAll('.subunit-label.la' + datum.id + datum.properties.name.replace(/[ \.#']+/g, ''))
         .style('display', 'none');
@@ -165,9 +176,14 @@ function mouseoutLegend(datum, index) {
         .style('fill', heatColor(datum));
 }
 
-function coutryclicked(datum, index) {
+
+function countryclicked(datum, index) {
+    var country = datum.properties.name;
+    var year = $('.range-slider__range').val();
+    console.log(year, country);
+    loadNewsAPI(country, year);
     //filter event for this country should be applied here
-    console.log('coutryclicked datum', datum);
+    console.log('countryclicked datum', datum);
 }
 
 function heatColor(d) {
@@ -183,7 +199,9 @@ function heatColor(d) {
     if (!approxIdx || Math.floor(approxIdx) === 0) approxIdx = 0;
     else approxIdx = Math.floor(approxIdx) - 1;
     return palette[approxIdx];
+
 }
+
 
 
 
