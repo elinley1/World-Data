@@ -64,7 +64,7 @@ function updateArticles(docs) {
 
         var website = article.web_url;
         if (website) {
-            $articleSelection.append("<a href= " + website + ">" + website + "</a>")
+            $articleSelection.append("<a href= '" + website + "' class='website'>" + website + "</a>")
         }
     }
 };
