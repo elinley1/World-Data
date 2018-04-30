@@ -71,6 +71,7 @@ function updateArticles(docs) {
 
         var $articleSelection = $("<article>");
         $articleSelection.addClass("selection");
+        $articleSelection.append("<button class='btn black' type='save' name='action'>Save Article</button>");
         $articleSelection.attr("id", "article-selection-" + articleCount);
 
         $("#articles").append($articleSelection);
@@ -100,7 +101,7 @@ function updateArticles(docs) {
 
         var website = article.web_url;
         if (website) {
-            $articleSelection.append("<a href= " + website + ">" + website + "</a>")
+            $articleSelection.append("<a href= '" + website + "' class='website'>" + website + "</a>")
         }
     }
 };
