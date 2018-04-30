@@ -39,12 +39,27 @@
                 .attr("class", "graticule")
                 .attr("d", path);
 
-            d3.json('/api/map', function(error, mockdata) {
-                if (error) return console.error(error);
-                console.log('mockdata',mockdata);
-                mapdata = mockdata;
-                draw(mockdata)
-            });
+                
+            // d3.json('/api/map', function(error, mockdata) {
+            //     if (error) return console.error(error);
+            //     console.log('mockdata',mockdata);
+            //     mapdata = mockdata;
+            //     draw(mockdata)
+            // });
+
+            $(document).ready(function () {
+
+                $("body").on('click', ".black", function () {
+        
+                    d3.json('/submit', function(error, mockdata) {
+                        if (error) return console.error(error);
+                        console.log('mockdata', mockdata);
+                        mapdata = mockdata;
+                        draw(mockdata);
+                    });
+
+                });
+              });
 
             function draw(data) {
                 // var localstoreWorldData = localStorage.getItem('worldmapData');
@@ -143,20 +158,7 @@
             }
 
 
-            $(document).ready(function () {
-
-                $("body").on('click', ".black", function () {
-        
-                  $.ajax({
-                    url: '/post',
-                    method: 'POST'
-        
-                  }).then(function (data) {
-                    alert("yeah")
-                  });
-                });
-              });
-
+           
 
 
 
