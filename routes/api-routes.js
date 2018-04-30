@@ -61,15 +61,15 @@ module.exports = function (app) {
     var link = req.body.web_url;
     var title = req.body.headline;
     var date = req.body.pub_date;
-    var byline = req.body.byline;
-    var section = req.body.section_name;
+  
+
 
     gdp.savedArticles.create({
       title: title,
       link: link,
       date: date,
-      byline: byline,
-      section: section
+
+     
     }).then(function (saveart) {
       res.json(saveart);
     })
