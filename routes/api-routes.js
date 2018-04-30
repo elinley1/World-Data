@@ -56,13 +56,30 @@ module.exports = function (app) {
     });
   });
 
+  app.post("/api/articles/saved", function (req, res) {
 
+    var link = req.body.web_url;
+    var title = req.body.headline;
+    var date = req.body.pub_date;
+  
+
+
+    gdp.savedArticles.create({
+      title: title,
+      link: link,
+      date: date,
+
+     
+    }).then(function (saveart) {
+      res.json(saveart);
+    })
+
+  });
+
+}
 
   // app.get("/api/map", function (req, res) {
   //   var query = req.body;
   //   res.sendFile(path.join(__dirname, "../public/js/map.json"));
 
   // });
-
-}
-
