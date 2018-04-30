@@ -5,19 +5,19 @@ var gdp = require("../models/models.js");
 module.exports = function (app) {
 
 
+  app.get("/submit/:year/:category", function (req, res) {
 
-  app.get("/api/map", function (req, res) {
-    var query = req.body;
-    res.sendFile(path.join(__dirname, "../public/js/map.json"));
+    var yearChosen = req.params.year;
+    console.log(yearChosen);
+    var categoryChosen = req.params.category;
+    console.log(categoryChosen);
+    // if (categoryChosen = "gdp") {
+    //   var table = gdp;
+    // }
 
-  });
-
-  "/api/:categ"
-  app.get("/submit", function (req, res) {
     gdp.findAll({
-
       attributes: ['code', 'gdpIdx'],
-      where: { year: 2004 }
+      where: { year: yearChosen }
     }
     ).then(function (mapData) {
       var Data = {
@@ -56,28 +56,12 @@ module.exports = function (app) {
     });
   });
 
-  // app.post("/post", function (req, res) {
-  //   gdp.create({
-  //     country: "Africa",
-  //     code: "dfd",
-  //     year: 2004,
-  //     gdpIdx: 2323232
-  //   });
-  // });
 
 
+  // app.get("/api/map", function (req, res) {
+  //   var query = req.body;
+  //   res.sendFile(path.join(__dirname, "../public/js/map.json"));
 
-  // app.get("/api/:category/:year", function(req, res) {
-  //  var category = req.params.category;
-  //  var year = req.params.category
-
-  //  db.category.findOne({
-  //     where: {
-  //       year: year
-  //     }
-  //   }).then(function(mapData) {
-  //     globalMapData = mapData;
-  //   });
   // });
 
 }

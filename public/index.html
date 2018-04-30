@@ -42,7 +42,7 @@
         <option value="2">GINI Index</option>
         <option value="3">Internet Usage</option>
         <option value="3">Life Expectancy</option>
-        <option value="3">GDP per Capita</option>
+        <option value="gdp">GDP per Capita</option>
       </select>
       <div class="range-slider col s5">
         <h5 id="year">Select a Year</h5>
@@ -65,45 +65,26 @@
 
     <script>
       var elem = document.querySelector('select');
-      var instance = M.FormSelect.init(elem, options);
-
+      var instance = M.FormSelect.init(elem);
       var rangeSlider = function () {
         var slider = $('.range-slider'),
           range = $('.range-slider__range'),
           value = $('.range-slider__value');
-
         slider.each(function () {
-
           value.each(function () {
             var value = $(this).prev().attr('value');
             $(this).html(value);
           });
-
           range.on('input', function () {
-            $(this).next(value).html(this.value);
+            $(this).prev(value).html(this.value);
           });
         });
       };
-
       rangeSlider();
 
-           $(document).ready(function(){
-
-           
-           $("body").on('click',"black",function(){
-           
-           $.ajax({
-                   url: '/post',
-                   method: 'POST'
-           
-               }).then(function(data){
-                   alert("yeah")
-               });
-       });
-      });
-      
-
     </script>
+
+
   <script src="js/map.js" type="text/javascript"></script>
 </body>
 
