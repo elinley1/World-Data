@@ -35,11 +35,11 @@
     <div class="row">
       <select class="browser-default col s4" id="dropdown">
         <option value="" disabled selected>Select a Category</option>
-        <option value="1">Happiness</option>
-        <option value="2">GINI Index</option>
-        <option value="3">Internet Usage</option>
-        <option value="3">Life Expectancy</option>
-        <option value="3">GDP per Capita</option>
+        <option class="selector" value="happiness">Happiness</option>
+        <option class="selector" value="income_inequality">Income Inequality</option>
+        <option class="selector" value="internet_usage">Internet Usage</option>
+        <option class="selector" value="life_expectancy">Life Expectancy</option>
+        <option class="selector" value="gdp">GDP per Capita</option>
       </select>
 
       <div class="range-slider col s5">
@@ -55,8 +55,9 @@
       <div id="country"></div>
     </div>
 
-    <div class="row" id="description">
+    <div class="row" id="data-description">
       <h4>Description:</h4>
+      <p id="description"></p>
     </div>
 
     <div class="row" id="articles"></div>
