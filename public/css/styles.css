@@ -156,18 +156,31 @@ h4 {
 
 /* Gradient */
 #gradient {
+  position: relative;
   border-radius: 12px;
   height: 20px;
   width: 100%;
+  z-index: 2;
+  top: 840px;
 }
 
 #low {
+  position: relative;
   margin-top: 0px;
+  z-index: 2;
+  top: 836px;
 }
 
 #high {
+  position: relative;
   float: right;
   margin-top: -38px;
+  z-index: 2;
+  top: 836px;
+}
+
+#country {
+  display: none;
 }
 
 /* Articles */
@@ -216,6 +229,12 @@ h5 {
     padding: 10px;
   }
   .website {
+    font-size: 10px;
+  }
+  .btn {
+    height: 30px;
+    line-height: 25px;
+    padding: 0px 12px;
     font-size: 10px;
   }
 
