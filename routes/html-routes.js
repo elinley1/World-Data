@@ -12,6 +12,9 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
-
-
+  app.get("/api/articles/user", function (req,res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"))
+  });
 };
+
+
