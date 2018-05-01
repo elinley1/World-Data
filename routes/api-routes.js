@@ -1,6 +1,7 @@
 /// need to finish the changes to the tables 
 var path = require("path");
 var gdp = require("../models/models.js");
+var SavedArticles = require("../models/savedarticles.js");
 
 module.exports = function (app) {
 
@@ -56,30 +57,33 @@ module.exports = function (app) {
     });
   });
 
-  app.post("/api/articles/saved", function (req, res) {
+  app.post("/api/savearticle", function (req, res) {
 
-    var link = req.body.web_url;
-    var title = req.body.headline;
-    var date = req.body.pub_date;
-  
+    SavedArticles.create({
+      title: req.body.headline,
+      date: req.body.publishDate,
+      section: req.body.section,
+      link: req.body.website
 
-
-    gdp.savedArticles.create({
-      title: title,
-      link: link,
-      date: date,
-
-     
     }).then(function (saveart) {
       res.json(saveart);
     })
+  });
 
+  app.get("/api/articles/saved", function (req, res) {
+
+    SavedArticles.findAll({
+      attributes: ['title', "date", "section", 'link']
+
+    }).then(function (data) {
+    var savedArticles = [];
+      data.forEach(function(article){
+        savedArticles.push(article.dataValues);
+      })
+
+      console.log(savedArticles);
+      res.render("index", {article: savedArticles});
+    });
   });
 
 }
-
-  // app.get("/api/map", function (req, res) {
-  //   var query = req.body;
-  //   res.sendFile(path.join(__dirname, "../public/js/map.json"));
-
-  // });

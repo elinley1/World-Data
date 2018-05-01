@@ -1,3 +1,7 @@
+var newsDocs = [];
+
+
+
 function loadNewsAPI(country, year) {
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({
@@ -13,7 +17,7 @@ function loadNewsAPI(country, year) {
     }).done(function(result) {
       console.log(result);
       let docs = result.response.docs
-      console.log(docs)
+    //   console.log(docs)
         updateArticles(docs);
       return result;
 
@@ -67,16 +71,18 @@ function showGradient() {
 
 //Update articles based on search criteria 
 function updateArticles(docs) {
+    newsDocs = docs;
+    
     var numberArticles = 10;
     $('#articles').html("")
-    for (var i = 0; i < docs.length; i++) {
+    for (var i = 0; i < newsDocs.length; i++) {
         console.log("repeating");
-        var article = docs[i];
+        var article = newsDocs[i];
         var articleCount = i + 1;
 
         var $articleSelection = $("<article>");
         $articleSelection.addClass("selection");
-        $articleSelection.append("<button class='btn black' id='saveArticle' type='save' name='action'>Save Article</button>");
+        $articleSelection.append("<button class='btn black saveArticle' id='"+i+"' type='save' name='action'>Save Article</button>");
         $articleSelection.attr("id", "article-selection-" + articleCount);
 
         $("#articles").append($articleSelection);
@@ -110,24 +116,28 @@ function updateArticles(docs) {
         }
     }
 
-    // function saveArticles() {
 
-    //     $(document).on("click", "#saveArticle", function() {
-    //         var data = {
-    //             headline: $(".articleHead").text(),
-    //             pub_date: $(".pubDate").text(),
-    //             web_url: $(".website").text()
-    //         }
 
-    //         $.ajax({
-    //             url: "api/articles/saved",
-    //             method: "POST",
-    //             data: data
-    //         }).then(function(err, data) {
-    //             if (err) throw err;
-    //             console.log(data);
-    //         });
-    //     });
-    // }
+        $(document).on("click", ".saveArticle", function() {
+            event.preventDefault();
+            var article = newsDocs[Number($(this).attr("id"))]; 
+            
+            var data = {
+                 headline : article.headline.main,
+                 publishDate : article.pub_date,
+                 section : article.section_name,
+                 website : article.web_url
+            }
+            console.log(data);
+          
+            $.ajax({
+                url: "/api/savearticle",
+                method: "POST",
+                data: data
+            });
+
+        });
+    
+        
 };
 
