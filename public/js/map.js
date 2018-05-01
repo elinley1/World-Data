@@ -12,11 +12,17 @@ var projection = d3.geo.mercator()
 var path = d3.geo.path().projection(projection);
 var graticule = d3.geo.graticule();
 // SVG related definitions
-var svg = d3.select('#country').append('svg')
+var wrapper = d3.select('#country')
     .attr({
-        'width': width,
-        'height': height
+        'class': 'svg-container'
+    });
+
+var svg = wrapper.append('svg')
+    .attr({
+        'viewBox': "0 0 " + width + " " + height,
+        'preserveAspectRatio': 'xMidYMid meet'
     })
+    .classed( 'svg-content', true )
     .append('g');
 var filter = svg.append('defs')
     .append('filter')
