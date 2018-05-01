@@ -193,6 +193,12 @@ h5 {
   float: right;
 }
 
+/* Description Box */
+#description {
+  text-align: justify;
+  font-family: 'Yantramanav', sans-serif;
+}
+
 /* Media Queries */
 @media only screen and (max-width: 600px) {
   /* Range Slider */
@@ -233,11 +239,18 @@ h5 {
 }
 
 @media only screen and (min-width: 768px) {
-
+  .row .col.s4 {
+    width: 28.333333%;
+  }
+  .row .col.s5 {
+    width: 41.666667%;
+  }
 }
 
 @media only screen and (min-width: 992px) {
-
+  .row .col.s5 {
+    width: 49.666667%;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
