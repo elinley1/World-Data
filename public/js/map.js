@@ -71,7 +71,7 @@ svg.append("path")
 //   });
 var submitClickCount = 0;
 $(document).ready(function () {
-    $("body").on('click', ".black", function () {
+    $("body").on('click', "#submitButton", function () {
       
         var yearChosen = $('.range-slider__range').val();
         
