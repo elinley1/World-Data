@@ -4,6 +4,13 @@ nav {
   background-color: black;
 }
 
+#home,
+#articleHB {
+  font-family: 'Yantramanav', sans-serif;
+  font-size: 18px;
+  margin-left: 20px;
+}
+
 /* Nav Logo */
 nav .brand-logo.right {
   right: 3.5rem;
