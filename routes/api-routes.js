@@ -81,7 +81,7 @@ module.exports = function (app) {
         savedArticles.push(article.dataValues);
       })
 
-      console.log(savedArticles);
+      // console.log(savedArticles);
       res.render("index", {article: savedArticles});
     });
   });
