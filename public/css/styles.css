@@ -18,6 +18,7 @@ nav .brand-logo.right {
 }
 
 /* World Icon */
+
 #world {
   height: 45px;
   width: 45px;
@@ -26,6 +27,7 @@ nav .brand-logo.right {
 }
 
 /* Range Slider */
+
 *,
 *:before,
 *:after {
@@ -34,6 +36,7 @@ nav .brand-logo.right {
 
 .range-slider {
   width: 100%;
+  margin-right: 35px;
 }
 
 .row .col.s5 {
@@ -138,6 +141,7 @@ input::-moz-focus-outer {
 }
 
 /* Headers */
+
 #country,
 #description,
 #articles,
@@ -150,18 +154,26 @@ h4 {
 }
 
 /* Dropdown Box */
+
 #dropdown {
   margin-top: 20px;
   margin-right: 35px;
 }
 
+.browser-default {
+  width: 22%;
+}
+
 /* Submit Button */
+
 #submitButton {
   margin-top: 20px;
   padding: 0px 30px 0px 30px;
+  width: 18%;
 }
 
 /* Gradient */
+
 #gradient {
   position: relative;
   border-radius: 12px;
@@ -187,6 +199,7 @@ h4 {
 }
 
 /* Articles */
+
 article {
   border: 1px solid black;
   padding: 30px;
@@ -209,72 +222,223 @@ h5 {
   float: right;
 }
 
+#saved {
+  font-family: 'Play', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 /* Description Box */
+
 #description {
   text-align: justify;
   font-family: 'Yantramanav', sans-serif;
 }
 
 /* Media Queries */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1200px) {
+  .row .col.l5 {
+    width: 39.666667%;
+  }
+  /* Gradient Bar */
+  #gradient {
+    top: 686px;
+  }
+  #low {
+    top: 679px;
+  }
+  #high {
+    top: 680px;
+  }
+  /* Article */
+  article {
+    padding: 18px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
   /* Range Slider */
-  .row .col.s5 {
+  .row .col.m5 {
+    width: 39.666667%;
+  }
+  /* Dropbox */
+  .row .col.s3 {
+    width: 24%;
+  }
+  /* Submit Button */
+  .btn {
+    margin-left: 10px;
+  }
+  /* Gradient Bar */
+  #gradient {
+    top: 718px;
+  }
+  #low {
+    top: 714px;
+  }
+  #high {
+    top: 716px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* Range Slider */
+  .row .col.m5 {
+    width: 37.666667%;
+  }
+  /* Gradient Bar */
+  #gradient {
+    top: 541px;
+  }
+  #low {
+    top: 535px;
+  }
+  #high {
+    top: 535px;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  /* Range Slider */
+  .row .col.s12 {
     width: 100%;
   }
-
   /* Dropdown */
   #dropdown {
     width: 100%;
   }
 
+  /* Nav Logo */
+  nav .brand-logo.right {
+    font-size: 18px;
+    right: 1.5rem;
+  }
+  #world {
+    height: 33px;
+    width: 33px;
+    margin-left: 16px;
+    margin-top: 12px;
+  }
+
+  /* Article Nav */
+  #articleHB {
+    font-size: 12px;
+    margin-left: 14px;
+  }
+
   /* Articles */
-  .articleHead {
-    font-size: 15px;
-  }
-  h5 {
-    font-size: 10px;
-  }
   article {
     padding: 10px;
   }
-  .website {
-    font-size: 10px;
-  }
-  .btn {
-    height: 30px;
-    line-height: 25px;
-    padding: 0px 12px;
-    font-size: 10px;
+
+  .articleHead {
+    font-size: 18px;
   }
 
-  /* Nav Bar */
+  h5 {
+    font-size: 14px;
+  }
+
+  .website {
+    font-size: 12px;
+  }
+
+  .btn {
+    margin-left: 5px;
+    font-size: 11px;
+    padding: 0px 11px;
+  }
+
+  /* Submit Button */
+  #submitButton {
+    padding: 0 0 0 0;
+    width: 30%;
+  }
+
+  /* Gradient Bar */
+  #gradient {
+    top: 275px;
+    height: 10px;
+  }
+  #low {
+    top: 270px;
+    font-size: 10px;
+  }
+  #high {
+    top: 283px;
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  /* Range Slider */
+  .row .col.s5 {
+    width: 100%;
+  }
+  /* Dropdown */
+  #dropdown {
+    width: 100%;
+  }
+
+  /* Nav Logo */
   nav .brand-logo.right {
+    font-size: 18px;
     right: 1.5rem;
-    font-size: 25px;
   }
   #world {
-    height: 37px;
-    width: 37px;
-    margin-left: 21px;
-    margin-top: 9px;
+    height: 33px;
+    width: 33px;
+    margin-left: 16px;
+    margin-top: 12px;
   }
-}
 
-@media only screen and (min-width: 768px) {
-  .row .col.s4 {
-    width: 28.333333%;
+  /* Article Nav */
+  #articleHB {
+    font-size: 12px;
+    margin-left: 14px;
   }
-  .row .col.s5 {
-    width: 41.666667%;
+
+  /* Articles */
+  article {
+    padding: 10px;
   }
-}
 
-@media only screen and (min-width: 992px) {
-  .row .col.s5 {
-    width: 49.666667%;
+  .articleHead {
+    font-size: 18px;
   }
-}
 
-@media only screen and (min-width: 1200px) {
+  h5 {
+    font-size: 14px;
+  }
 
+  .website {
+    font-size: 12px;
+  }
+
+  .btn {
+    margin-left: 5px;
+    font-size: 11px;
+    padding: 0px 11px;
+  }
+
+  /* Submit Button */
+  #submitButton {
+    padding: 0 0 0 0;
+    width: 30%;
+  }
+
+  /* Gradient Bar */
+  #gradient {
+    top: 275px;
+    height: 10px;
+  }
+  #low {
+    top: 270px;
+    font-size: 10px;
+  }
+  #high {
+    top: 283px;
+    font-size: 10px;
+  }
 }
