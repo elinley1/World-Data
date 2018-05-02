@@ -1,102 +1,106 @@
-var mapdata = {};
+var mapdata;
+var svg;
+var minDocCount;
 var palette = ['#009933', '#669900', '#99cc00', '#cccc00', '#c7dc09', '#edf933', '#ffcc00', '#ff9933', '#ff6600', '#ff5050'];
-var width = 960,
-    height = 960;
-var minDocCount = 0,
-    quantiles = {};
-// projection definitions
-var projection = d3.geo.mercator()
-    .scale((width + 1) / 2 / Math.PI)
-    .translate([width / 2, height / 2])
-    .precision(.1);
-var path = d3.geo.path().projection(projection);
-var graticule = d3.geo.graticule();
-// SVG related definitions
-var wrapper = d3.select('#country')
-    .attr({
-        'class': 'svg-container'
-    });
+var width = 960;
+var height = 960;
+var projection;
+var path;
+var graticule;
+var wrapper;
+var svg;
+var filter;
 
-var svg = wrapper.append('svg')
-    .attr({
-        'viewBox': "0 0 " + width + " " + height,
-        'preserveAspectRatio': 'xMidYMid meet'
-    })
-    .classed( 'svg-content', true )
-    .append('g');
-var filter = svg.append('defs')
-    .append('filter')
-    .attr({
-        'x': 0,
-        'y': 0,
-        'width': 1,
-        'height': 1,
-        'id': 'gray-background'
-    });
-filter.append('feFlood')
-    .attr('flood-color', '#f2f2f2')
-    .attr('result', 'COLOR');
-filter.append('feMorphology')
-    .attr('operator', 'dilate')
-    .attr('radius', '.9')
-    .attr('in', 'SourceAlpha')
-    .attr('result', 'MORPHED');
-filter.append('feComposite')
-    .attr('in', 'SourceGraphic')
-    .attr('in2', 'MORPHED')
-    .attr('result', 'COMP1');
-filter.append('feComposite')
-    .attr('in', 'COMP1')
-    .attr('in2', 'COLOR');
+function drawGrid() {
+    mapdata = {};
 
-svg.append("path")
-    .datum(graticule)
-    .attr("class", "graticule")
-    .attr("d", path);
+    minDocCount = 0,
+        quantiles = {};
+    // projection definitions
+    projection = d3.geo.mercator()
+        .scale((width + 1) / 2 / Math.PI)
+        .translate([width / 2, height / 2])
+        .precision(.1);
+    path = d3.geo.path().projection(projection);
+    graticule = d3.geo.graticule();
+    // SVG related definitions
+    wrapper = d3.select('#country')
+        .attr({
+            'class': 'svg-container'
+        });
 
+    svg = wrapper.append('svg')
+        .attr({
+            'viewBox': "0 0 " + width + " " + height,
+            'preserveAspectRatio': 'xMidYMid meet'
+        })
+        .classed('svg-content', true)
+        .append('g');
+    filter = svg.append('defs')
+        .append('filter')
+        .attr({
+            'x': 0,
+            'y': 0,
+            'width': 1,
+            'height': 1,
+            'id': 'gray-background'
+        });
+    filter.append('feFlood')
+        .attr('flood-color', '#f2f2f2')
+        .attr('result', 'COLOR');
+    filter.append('feMorphology')
+        .attr('operator', 'dilate')
+        .attr('radius', '.9')
+        .attr('in', 'SourceAlpha')
+        .attr('result', 'MORPHED');
+    filter.append('feComposite')
+        .attr('in', 'SourceGraphic')
+        .attr('in2', 'MORPHED')
+        .attr('result', 'COMP1');
+    filter.append('feComposite')
+        .attr('in', 'COMP1')
+        .attr('in2', 'COLOR');
 
-// d3.json('/api/map', function(error, mockdata) {
-//     if (error) return console.error(error);
-//     console.log('mockdata',mockdata);
-//     mapdata = mockdata;
-//     draw(mockdata)
-// });
+    svg.append("path")
+        .datum(graticule)
+        .attr("class", "graticule")
+        .attr("d", path);
+}
+// init grid and d3 globals
+drawGrid();
 
-// $(document).ready(function () {
-
-//     $("body").on('click', ".black", function () {
-
-//         d3.json('/submit', function(error, mockdata) {
-//             if (error) return console.error(error);
-//             console.log('mockdata', mockdata);
-//             mapdata = mockdata;
-//             draw(mockdata);
-//         });
-
-//     });
-//   });
 var submitClickCount = 0;
 $(document).ready(function () {
+
+
+    d3.json('js/map.json', function(error, mockdata) {
+        if (error) return console.error(error);
+        console.log('mockdata',mockdata);
+        mapdata = mockdata;
+        draw(mockdata)
+    });
+
+
     $("body").on('click', "#submitButton", function () {
-      
+
         var yearChosen = $('.range-slider__range').val();
-        
+
         var categoryChosen = $("#dropdown").val();
 
         yearChosen = yearChosen.replace(/\s+/g, "").toLowerCase();
         categoryChosen = categoryChosen.replace(/\s+/g, "").toLowerCase();
 
-        
+
         $.ajax({
-            url: "/submit/" + yearChosen + "/" +categoryChosen,
+            url: "/submit/" + yearChosen + "/" + categoryChosen,
             method: 'GET',
-        }).done(function (mockdata) {
+        }).done(function (data) {
+
             console.log(yearChosen);
-            // console.log('mockdata', JSON.parse(mockdata));
-            mapdata = JSON.parse(mockdata);
-            draw(JSON.parse(mockdata));
-            submitClickCount ++;
-            console.log("you have clicked " + submitClickCount + " times");
+            console.log('mockdata!!!', JSON.parse(data));
+            // mapdata = JSON.parse(mockdata);
+            draw(JSON.parse(data));
+
 
         });
     });
@@ -116,12 +120,18 @@ function draw(data) {
     // }
     d3.json('js/world.json', function (error, world) {
         if (error) return console.error(error);
-        console.log('world', world);
+        console.log("mapdata!!!", data);
         processWorldD(world, data);
+
         //localStorage.setItem('worldmapData', JSON.stringify(world));
     });
 }
+
 function processWorldD(world, data) {
+    $(".svg-container").children().each(function () {
+        $(this).remove();
+    });
+    drawGrid();
     for (var idx = 0; idx < data.aggregations.world_map.buckets.length; idx++) {
         var cCode = data.aggregations.world_map.buckets[idx].key.toUpperCase();
         var doc_count = data.aggregations.world_map.buckets[idx].doc_count;
@@ -132,7 +142,7 @@ function processWorldD(world, data) {
             }
         }
     }
-  
+
     var subunits = topojson.feature(world, world.objects.subunits);
     subunits.features = subunits.features.filter(function (d) { return d.id !== "ATA"; });
     console.log('subunits', subunits);
