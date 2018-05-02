@@ -97,7 +97,7 @@ $(document).ready(function () {
         }).done(function (data) {
 
             $(".svg-container").children().each(function () {
-                if (this.id !== 'gradient') {
+                if (this.id !== 'gradient'&& this.id !== 'low' && this.id !== 'high') {
                     $(this).remove();
                 }
 
