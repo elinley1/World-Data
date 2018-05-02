@@ -73,9 +73,9 @@ var submitClickCount = 0;
 $(document).ready(function () {
 
 
-    d3.json('js/map.json', function(error, mockdata) {
+    d3.json('js/map.json', function (error, mockdata) {
         if (error) return console.error(error);
-        console.log('mockdata',mockdata);
+        console.log('mockdata', mockdata);
         mapdata = mockdata;
         draw(mockdata)
     });
@@ -95,6 +95,14 @@ $(document).ready(function () {
             url: "/submit/" + yearChosen + "/" + categoryChosen,
             method: 'GET',
         }).done(function (data) {
+
+            $(".svg-container").children().each(function () {
+                if (this.id !== 'gradient') {
+                    $(this).remove();
+                }
+
+            });
+            drawGrid();
 
             console.log(yearChosen);
             console.log('mockdata!!!', JSON.parse(data));
@@ -128,10 +136,10 @@ function draw(data) {
 }
 
 function processWorldD(world, data) {
-    $(".svg-container").children().each(function () {
-        $(this).remove();
-    });
-    drawGrid();
+    // $(".svg-container").children().each(function () {
+    //     $(this).remove();
+    // });
+    // drawGrid();
     for (var idx = 0; idx < data.aggregations.world_map.buckets.length; idx++) {
         var cCode = data.aggregations.world_map.buckets[idx].key.toUpperCase();
         var doc_count = data.aggregations.world_map.buckets[idx].doc_count;
