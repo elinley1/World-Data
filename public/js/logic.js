@@ -94,7 +94,6 @@ function updateArticles(docs) {
         var $articleSelection = $("<article>");
         $articleSelection.addClass("selection");
         $articleSelection.append("<button class='btn saveArticle' id='"+i+"' type='save' name='action'>Save Article</button>");
-        $articleSelection.append("<button class='delete btn btn-danger'>x</button>");
         $articleSelection.attr("id", "article-selection-" + articleCount);
 
         $("#articles").append($articleSelection);
