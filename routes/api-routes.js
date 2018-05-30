@@ -73,8 +73,8 @@ module.exports = function (app) {
   app.get("/api/articles/saved", function (req, res) {
 
     SavedArticles.findAll({
-      attributes: ['title', "date", "section", 'link']
-
+      attributes: ['title', "date", "section", 'link', "id"],
+      order: [['date', 'ASC']]
     }).then(function (data) {
     var savedArticles = [];
       data.forEach(function(article){
@@ -85,5 +85,16 @@ module.exports = function (app) {
       res.render("index", {article: savedArticles});
     });
   });
+
+  app.delete("/api/articles/saved", function(req, res) {
+    SavedArticles.destroy({
+      where: {
+        id: req.body.id
+      }
+    })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
+    });
 
 }

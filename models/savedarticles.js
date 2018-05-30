@@ -3,6 +3,10 @@ var Sequelize = require("sequelize");
 var sequelize = require("../config/connection.js");
 
 var SavedArticles = sequelize.define("savedArticles", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
     title: {
         type: Sequelize.STRING
  
@@ -21,8 +25,6 @@ var SavedArticles = sequelize.define("savedArticles", {
     }
   
 });
-
-
 
 sequelize
     .authenticate()

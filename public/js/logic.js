@@ -1,7 +1,5 @@
 var newsDocs = [];
 
-
-
 function loadNewsAPI(country, year) {
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({
@@ -61,13 +59,31 @@ $(document).ready(function () {
     $("#dropdown").change(function() {
         $("#dropdown option:selected").val();
         updateDescription();
-    });    
+    });  
+    
+    console.log("Registed Unsave Article Handler");
+
+    $(document).on("click", ".unsaveArticle", function() {
+        let that = this;
+        let articleId = $(this).data("id");
+        console.log("Asking server to delete saved article", articleId);
+        $.ajax({
+            url: "/api/articles/saved",
+            method: "DELETE",
+            data: {
+                id: articleId
+            }
+        }).then(function(resp) {
+            that.closest("article").remove();
+        })
+    })
 });
+  
 
 //Update articles based on search criteria 
 function updateArticles(docs) {
     newsDocs = docs;
-    
+
     var numberArticles = 10;
     $('#articles').html("")
     for (var i = 0; i < newsDocs.length; i++) {
@@ -77,7 +93,8 @@ function updateArticles(docs) {
 
         var $articleSelection = $("<article>");
         $articleSelection.addClass("selection");
-        $articleSelection.append("<button class='btn black saveArticle' id='"+i+"' type='save' name='action'>Save Article</button>");
+        $articleSelection.append("<button class='btn saveArticle' id='"+i+"' type='save' name='action'>Save Article</button>");
+        $articleSelection.append("<button class='delete btn btn-danger'>x</button>");
         $articleSelection.attr("id", "article-selection-" + articleCount);
 
         $("#articles").append($articleSelection);
@@ -111,9 +128,10 @@ function updateArticles(docs) {
         }
     }
 
-
+      
 
         $(document).on("click", ".saveArticle", function() {
+            $(this).css("background", "gray");          
             event.preventDefault();
             var article = newsDocs[Number($(this).attr("id"))]; 
             
@@ -122,6 +140,7 @@ function updateArticles(docs) {
                  publishDate : article.pub_date,
                  section : article.section_name,
                  website : article.web_url
+                 
             }
             console.log(data);
           
@@ -132,6 +151,7 @@ function updateArticles(docs) {
             });
 
         });
+
     
         
 };
