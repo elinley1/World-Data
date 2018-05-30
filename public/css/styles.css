@@ -180,14 +180,14 @@ h4 {
   height: 20px;
   width: 100%;
   z-index: 2;
-  top: 781px;
+  top: 1000px;
 }
 
 #low {
   position: relative;
   margin-top: 0px;
   z-index: 2;
-  top: 776px;
+  top: 1000px;
 }
 
 #high {
@@ -195,7 +195,7 @@ h4 {
   float: right;
   margin-top: -38px;
   z-index: 2;
-  top: 776px;
+  top: 1000px;
 }
 
 /* Articles */
@@ -341,7 +341,13 @@ h5 {
   }
 
   .website {
+    font-size: 14px;
+  }
+
+  .unsaveArticle {
+    margin-left: 5px;
     font-size: 12px;
+    padding: 0px 11px;
   }
 
   .btn {
