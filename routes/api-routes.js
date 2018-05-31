@@ -1,4 +1,4 @@
-/// need to finish the changes to the tables 
+
 var path = require("path");
 var gdp = require("../models/models.js");
 var SavedArticles = require("../models/savedarticles.js");
@@ -12,10 +12,7 @@ module.exports = function (app) {
     console.log(yearChosen);
     var categoryChosen = req.params.category;
     console.log(categoryChosen);
-    // if (categoryChosen = "gdp") {
-    //   var table = gdp;
-    // }
-
+    
     gdp.findAll({
       attributes: ['code', 'gdpIdx'],
       where: { year: yearChosen }
@@ -81,7 +78,7 @@ module.exports = function (app) {
         savedArticles.push(article.dataValues);
       })
 
-      // console.log(savedArticles);
+     
       res.render("index", {article: savedArticles});
     });
   });
