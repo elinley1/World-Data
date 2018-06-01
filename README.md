@@ -1,7 +1,8 @@
 # World-Data
 An app to help students, instructor, or anyone curious to learn more about the world we live in. Look up data for differnt quality of life indicators and find New York Times articles for a selected county in a selected year.
 
-#Break Down
+BREAK DOWN 
+
 Users select a quality of life indicator in a chosen year. Once an indicator is selected, a brief discription of its method of calculation is shown underneath the map.
 
 After "Submit" is clicked the world map then displays this data with lower scores displayed as green and higher displayed as red.
